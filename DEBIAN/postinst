@@ -1,0 +1,5 @@
+#!/bin/sh
+set -e
+if which setcap >/dev/null; then
+  setcap cap_net_raw,cap_setpcap=ep /usr/local/bin/dosbox
+fi

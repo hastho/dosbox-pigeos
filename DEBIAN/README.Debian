@@ -1,0 +1,11 @@
+DOSBox for Pi/GEOS
+******************
+
+Changes:
+
+- printer patch to allow DOS LPTX redirection to a Linux command
+- German umlaut patch to support DOS file names witch umaluts
+- NE2000 patch allows ODI/packet driver support via libpcap
+- postinst script that add advanced capabilities for libpcap
+
+-- Thomas Hass <thomas.hass@gmx.de>

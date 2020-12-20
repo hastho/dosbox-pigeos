@@ -50,8 +50,13 @@ public:
 		if (!strlen(path))
 			path = ".";
 		strcpy (tmpdir, path);
+#if defined (WIN32)
 		if (tmpdir[strlen(tmpdir)-1] != '\\')
 			strcat(tmpdir, "\\");
+#else
+		if (tmpdir[strlen(tmpdir)-1] != '/')
+			strcat(tmpdir, "/");
+#endif
 		
 #ifdef LPTXDBG
 		printf("-- Working directory path <%s>\n", tmpdir);

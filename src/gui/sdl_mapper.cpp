@@ -411,7 +411,7 @@ static SDLKey sdlkey_map[MAX_SCANCODES]={SDLK_UNKNOWN,SDLK_ESCAPE,
 
 
 SDLKey MapSDLCode(Bitu skey) {
-//	LOG_MSG("MapSDLCode %d %X",skey,skey);
+	LOG_MSG("MapSDLCode %d %X",skey,skey);
 	if (usescancodes) {
 		if (skey<MAX_SCANCODES) return sdlkey_map[skey];
 		else return SDLK_UNKNOWN;
@@ -419,7 +419,7 @@ SDLKey MapSDLCode(Bitu skey) {
 }
 
 Bitu GetKeyCode(SDL_keysym keysym) {
-//	LOG_MSG("GetKeyCode %X %X %X",keysym.scancode,keysym.sym,keysym.mod);
+//  	LOG_MSG("GetKeyCode %X %X %X",keysym.scancode,keysym.sym,keysym.mod);
 	if (usescancodes) {
 		Bitu key=(Bitu)keysym.scancode;
 		if (key==0

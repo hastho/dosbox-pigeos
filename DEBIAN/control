@@ -1,0 +1,9 @@
+Package: dosbox
+Version: 0.74+pigeos
+Depends: libsdl1.2debian (>= 1.2.15), libsdl-sound1.2 (>= 1.0.3), libsdl-net1.2 (>= 1.2.8), libpcap0.8 (>= 1.8.1)
+Section: custom
+Priority: optional
+Architecture: armhf
+Essential: no
+Maintainer: Thomas Hass <thomas.hass@gmx.de>
+Description: DOS emulator with enhancements to support PC/GEOS
