@@ -284,6 +284,9 @@ extern bool CPU_CycleAutoAdjust;
 //Globals for keyboard initialisation
 bool startup_state_numlock=false;
 bool startup_state_capslock=false;
+#ifdef SYNCGW_MOUSEWHEEL
+bool mousewheel=true;
+#endif
 
 void GFX_SetTitle(Bit32s cycles,Bits frameskip,bool paused){
 	char title[200]={0};
@@ -1429,6 +1432,10 @@ static void GUI_StartUp(Section * sec) {
 	SDLMod keystate = SDL_GetModState();
 	if(keystate&KMOD_NUM) startup_state_numlock = true;
 	if(keystate&KMOD_CAPS) startup_state_capslock = true;
+#ifdef SYNCGW_MOUSEWHEEL
+	/* enable/disable mouse wheel to keyboard key mapping  */
+	mousewheel=section->Get_bool("mousewheel");
+#endif
 }
 
 void Mouse_AutoLock(bool enable) {
@@ -1471,6 +1478,16 @@ static void HandleMouseButton(SDL_MouseButtonEvent * button) {
 		case SDL_BUTTON_MIDDLE:
 			Mouse_ButtonPressed(2);
 			break;
+#ifdef SYNCGW_MOUSEWHEEL
+		case SDL_BUTTON_WHEELUP:
+			if (mousewheel)
+				KEYBOARD_AddKey(KBD_pageup,true);
+			break;
+		case SDL_BUTTON_WHEELDOWN:
+			if (mousewheel)
+				KEYBOARD_AddKey(KBD_pagedown,true);
+			break;
+#endif
 		}
 		break;
 	case SDL_RELEASED:
@@ -1484,6 +1501,16 @@ static void HandleMouseButton(SDL_MouseButtonEvent * button) {
 		case SDL_BUTTON_MIDDLE:
 			Mouse_ButtonReleased(2);
 			break;
+#ifdef SYNCGW_MOUSEWHEEL
+		case SDL_BUTTON_WHEELUP:
+			if (mousewheel)
+				KEYBOARD_AddKey(KBD_pageup,false);
+			break;
+		case SDL_BUTTON_WHEELDOWN:
+			if (mousewheel)
+				KEYBOARD_AddKey(KBD_pagedown,false);
+			break;
+#endif
 		}
 		break;
 	}
@@ -1699,6 +1726,11 @@ void Config_Add_SDL() {
 
 	Pbool = sdl_sec->Add_bool("autolock",Property::Changeable::Always,true);
 	Pbool->Set_help("Mouse will automatically lock, if you click on the screen. (Press CTRL-F10 to unlock)");
+
+#ifdef SYNCGW_MOUSEWHEEL
+	Pbool = sdl_sec->Add_bool("mousewheel",Property::Changeable::Always,true);
+	Pbool->Set_help("Map mouse wheel movement to PageUp/PageDown keys.");
+#endif
 
 	Pint = sdl_sec->Add_int("sensitivity",Property::Changeable::Always,100);
 	Pint->SetMinMax(1,1000);

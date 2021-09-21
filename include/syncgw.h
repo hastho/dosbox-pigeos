@@ -209,4 +209,19 @@
 
 **/
 #define SYNCGW_LINUX_FB
+
+/**
+ * Title:  Map mouse wheel movements to PgUp/PgDown keys
+ * 
+ * Description: This adds mouse wheel support to GEOS :)
+ * 
+ * Testing:  1. Add "mousewheel=true" to the "[sdl]" section in the dosbox.conf
+ *           2. Open a text document eg. LICENSE.TXT in the GEOS editor
+ *           3. Move the mouse wheel and check it has the same effect as using PgUp/Down keys
+ * 
+ * Change log: 2021-09-21 - Created
+ * 
+**/
+
+#define SYNCGW_MOUSEWHEEL
 #endif
